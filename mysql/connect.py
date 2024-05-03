@@ -3,8 +3,8 @@ import mysql.connector
 try:
     con = mysql.connector.connect(
         user = 'root',
-        password = '',
-        host = 'localhost',
+        password = '123456',
+        host = '172.17.0.2',
         port = '3306',
         database = 'chotot_db'
     )

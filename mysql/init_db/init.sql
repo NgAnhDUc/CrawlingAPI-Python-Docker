@@ -16,4 +16,4 @@ CREATE TABLE products (
 	price INT,
 	price_string NVARCHAR(256),
 	webp_image NVARCHAR(256)
-);
+)

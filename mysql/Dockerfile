@@ -5,3 +5,4 @@ ENV MYSQL_DATABASE=chotot_db
 
 COPY ./init_db /docker-entrypoint-init_db.d
 EXPOSE 3306
+

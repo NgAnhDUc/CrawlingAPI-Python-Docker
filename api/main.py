@@ -9,11 +9,30 @@ connection_pool = mysql.connector.pooling.MySQLConnectionPool(
     user='root',
     password='123456',
     host='172.17.0.1',
-    port='1000',
+    port='6603',
     database='chotot_db'
 )
 
 app = FastAPI()
+
+def create_product_data(product):
+  return {
+    "ad_id": product["ad_id"],
+    "timedate": product["timedate"],
+    "account_id": product["account_id"],
+    "account_name": product["account_name"],
+    "title": product["title"],
+    "body": product["body"],
+    "category": product["category"],
+    "category_name": product["category_name"],
+    "area": product["area"],
+    "area_name": product["area_name"],
+    "region": product["region"],
+    "region_name": product["region_name"],
+    "price": product["price"],
+    "price_string": product["price_string"],
+    "webp_image": product["webp_image"],
+    }
 
 def get_connection():
     # Lấy một connection từ connection pool
@@ -45,24 +64,24 @@ async def get_products():
         cursor = con.cursor()
         cursor.execute("SELECT * FROM Products")
         products = cursor.fetchall()
+        products_data = [create_product_data(product) for product in products]
         cursor.close()
         con.close()
-        return products
+        return products_data
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
 
 @app.get("/search")
 async def search_products(title: str = Header(..., convert_underscores=True)):
     try:
-        # Lấy connection từ pool
         con = get_connection()
         cursor = con.cursor()
-        # Sử dụng tiêu đề để thực hiện truy vấn tìm kiếm
         query = f"SELECT * FROM Products WHERE title LIKE '%{title}%'"
         cursor.execute(query)
         search_results = cursor.fetchall()
+        products_data = [create_product_data(product) for product in search_results]
         cursor.close()
         con.close()
-        return search_results
+        return products_data
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))

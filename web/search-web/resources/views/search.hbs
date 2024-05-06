@@ -1,0 +1,36 @@
+<div class="container">
+    <div class="row d-flex justify-content-center align-items-center">
+        <div class="col-md-8">
+            <form action="/search" method="GET">
+                <div class="search">
+                    <i class="fa fa-search"></i>
+                    <input type="text" name="searchInput" class="form-control" placeholder="Searching for information">
+                    <button type="submit" class="btn btn-primary">Search</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<div class="container">
+    <table class="table">
+  <thead>
+    <tr>
+      <th scope="col">ad_id</th>
+      <th scope="col">Title</th>
+      <th scope="col">Body</th>
+      <th scope="col">Category Name</th>
+    </tr>
+  </thead>
+  <tbody>
+    {{#each data}}
+    <tr>
+      <td>{{this.ad_id}}</td>
+      <td>{{this.title}}</td>
+      <td>{{this.body}}</td>
+      <td>{{this.category_name}}</td>
+    </tr>
+    {{/each }}
+  </tbody>
+</table>
+</div>

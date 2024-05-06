@@ -1,12 +1,12 @@
-CREATE DATABASE chotot_db;
+CREATE DATABASE chotot_db CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci;;
 USE chotot_db;
 CREATE TABLE Products (
   id INT NOT NULL AUTO_INCREMENT,
   ad_id INT NOT NULL,
-  timedate DATETIME NOT NULL,
+  timedate NVARCHAR(512) NOT NULL,
   account_id INT NOT NULL,
   account_name NVARCHAR(512) NOT NULL,
-  title NVARCHAR(512) NOT NULL,
+  title TEXT NOT NULL,
   body NVARCHAR(1024) NOT NULL,
   category INT NOT NULL,
   category_name NVARCHAR(256) NOT NULL,
@@ -20,3 +20,4 @@ CREATE TABLE Products (
   PRIMARY KEY (id),
   UNIQUE KEY (ad_id) 
 );
+

@@ -37,7 +37,7 @@ if response.status_code == 200:
         con = mysql.connector.connect(
             user='root',
             password='123456',
-            host='localhost',
+            host='172.17.0.1',
             port='6603',
             database='chotot_db',
         )

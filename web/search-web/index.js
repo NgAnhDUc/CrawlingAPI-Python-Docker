@@ -2,8 +2,7 @@ var express = require('express');
 var expressHbs =  require('express-handlebars');
 var app = express();
 var path = require('path');
-
-var data = require('./products.json');
+var axios = require('axios');
 
 app.engine('.hbs', expressHbs.engine({ extname: '.hbs', defaultLayout: "main"}));
 
@@ -11,20 +10,27 @@ app.engine('.hbs', expressHbs.engine({ extname: '.hbs', defaultLayout: "main"}))
 app.set('views', path.join(__dirname, 'resources', 'views'));
 app.set('view engine', 'hbs');
 
-app.get('/', function (req, res) {
-  res.render('search', { 
-      data: data,
+app.get('/products', function (req, res) {
+axios
+  .get("http://127.0.0.1:9000/products")
+  .then((response) => {
+  console.log(response);
+  res.render('search', {
+    data: response.data,
   });
+})
+.catch((err) => console.log(err));
 })
 
 app.get('/search', function (req, res) {
-  var title = req.query.title;
-  var data = data?.filter(function (item) {
-    return item.title.toLowerCase().indexOf(title.toLowerCase()) !== -1
+  axios
+  .get("http://127.0.0.1:9000/search")
+  .then((response) => {
+  res.render('searchItem', {
+    data: response.data,
   });
-  res.render('search', {
-    title: data
-  });
+})
+.catch((err) => console.log(err));
 })
 
 app.listen(3000, function () {

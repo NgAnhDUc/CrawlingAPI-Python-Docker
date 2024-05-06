@@ -1,5 +1,5 @@
 <div class="container">
-    <div class="row d-flex justify-content-center align-items-center">
+    <div class="row d-flex justify-content-center align-items-center" style="margin-top: 100px;">
         <div class="col-md-8">
             <form action="/search" method="GET">
                 <div class="search">
@@ -26,8 +26,8 @@
     {{#each data}}
     <tr>
       <td>{{this.ad_id}}</td>
-      <td>{{this.title}}</td>
-      <td>{{this.body}}</td>
+      <td>{{this.account_id}}</td>
+      <td>{{this.account_name}}</td>
       <td>{{this.category_name}}</td>
     </tr>
     {{/each }}

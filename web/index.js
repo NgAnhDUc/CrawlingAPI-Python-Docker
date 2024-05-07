@@ -12,7 +12,7 @@ app.set('view engine', 'hbs');
 
 app.get('/', function (req, res) {
 axios
-  .get("http://127.0.0.1:9000/products")
+  .get("http://api_service:8000/products")
   .then((response) => {
   res.render('search', {
     data: response.data,
@@ -23,7 +23,7 @@ axios
 
 app.get('/search', function (req, res) {
   axios
-  .get(`http://localhost:9000/search?title=${req.query.title}`)
+  .get(`http://api_service:8000/search?title=${req.query.title}`)
   .then((response) => {
     res.render('search', {
       data: response.data,

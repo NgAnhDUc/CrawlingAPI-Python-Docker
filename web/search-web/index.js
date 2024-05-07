@@ -28,7 +28,6 @@ app.get('/search', function (req, res) {
     res.render('search', {
       data: response.data,
     });
-    console.log(response.data);
   })
   .catch((err) => console.log(err));
 });

@@ -1,0 +1,23 @@
+{
+  "name": "search-web",
+  "version": "1.0.0",
+  "description": "none",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "nodemon app.js"
+  },
+  "author": "duythai2502@gmail.com",
+  "license": "ISC",
+  "devDependencies": {
+    "axios": "^1.6.8",
+    "expess": "^0.0.1-security",
+    "express": "^4.19.2",
+    "express-handlebars": "^7.1.2",
+    "handlebars": "^4.7.8",
+    "nodemon": "^3.1.0"
+  },
+  "dependencies": {
+    "npm": "^10.7.0"
+  }
+}

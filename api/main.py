@@ -1,4 +1,4 @@
-from fastapi import FastAPI, HTTPException, Header
+from fastapi import FastAPI, HTTPException, Header, Query
 import mysql.connector.pooling
 
 # Tạo một connection pool
@@ -72,8 +72,11 @@ async def get_products():
         raise HTTPException(status_code=500, detail=str(e))
 
 @app.get("/search")
-async def search_products(title: str = Header(..., convert_underscores=True)):
+async def search_products(title: str = Query(None)):
     try:
+        if title is None:
+            raise HTTPException(status_code=400, detail="Title parameter is required")
+
         con = get_connection()
         cursor = con.cursor()
         query = f"SELECT * FROM Products WHERE title LIKE '%{title}%'"

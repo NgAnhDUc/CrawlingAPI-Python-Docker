@@ -23,15 +23,15 @@ axios
 
 app.get('/search', function (req, res) {
   axios
-  .get("http://127.0.0.1:9000/search")
+  .get(`http://localhost:9000/search?title=${req.query.title}`)
   .then((response) => {
-  // res.render('search', {
-  //   data: response.data,
-  // });
-})
-.catch((err) => console.log(err));
-res.render('search');
-})
+    res.render('search', {
+      data: response.data,
+    });
+  })
+  .catch((err) => console.log(err));
+});
+
 
 app.listen(3000, function () {
   console.log('Example app listening on port 3000!');

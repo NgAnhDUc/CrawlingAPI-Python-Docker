@@ -57,4 +57,13 @@
         {{{body}}}
     </div>
 </body>
+<script>
+        document.getElementById("searchForm").addEventListener("submit", function(event) {
+        event.preventDefault();
+        var searchTerm = document.getElementById("searchInput").value;
+        var newURL = window.location.origin + "/search?title=" + encodeURIComponent(searchTerm);
+        window.location.href = newURL;
+    });
+
+</script>
 </html>

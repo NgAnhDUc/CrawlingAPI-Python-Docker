@@ -52,7 +52,7 @@ if response.status_code == 200:
             # Chèn dữ liệu vào bảng
             for product in products:
                 
-                data_Product = (product['ad_id'], product['timedate'], product['account_id'], product['account_name'], "title", "body", product['category'], product['category_name'], product['area'], product['area_name'], product['region'], product['region_name'], product['price'], product['price_string'], product['webp_image'])
+                data_Product = (product['ad_id'], product['timedate'], product['account_id'], product['account_name'], product['title'], "body", product['category'], product['category_name'], product['area'], product['area_name'], product['region'], product['region_name'], product['price'], product['price_string'], product['webp_image'])
                 cursor.execute(query,data_Product)
             
             # Commit các thay đổi

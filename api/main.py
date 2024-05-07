@@ -17,21 +17,21 @@ app = FastAPI()
 
 def create_product_data(product):
   return {
-    "ad_id": product["ad_id"],
-    "timedate": product["timedate"],
-    "account_id": product["account_id"],
-    "account_name": product["account_name"],
-    "title": product["title"],
-    "body": product["body"],
-    "category": product["category"],
-    "category_name": product["category_name"],
-    "area": product["area"],
-    "area_name": product["area_name"],
-    "region": product["region"],
-    "region_name": product["region_name"],
-    "price": product["price"],
-    "price_string": product["price_string"],
-    "webp_image": product["webp_image"],
+    "ad_id": product[1],
+    "timedate": product[2],
+    "account_id": product[3],
+    "account_name": product[4],
+    "title": product[5],
+    "body": product[6],
+    "category": product[7],
+    "category_name": product[8],
+    "area": product[9],
+    "area_name": product[10],
+    "region": product[11],
+    "region_name": product[12],
+    "price": product[13],
+    "price_string": product[14],
+    "webp_image": product[15],
     }
 
 def get_connection():

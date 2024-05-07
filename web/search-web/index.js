@@ -10,11 +10,10 @@ app.engine('.hbs', expressHbs.engine({ extname: '.hbs', defaultLayout: "main"}))
 app.set('views', path.join(__dirname, 'resources', 'views'));
 app.set('view engine', 'hbs');
 
-app.get('/products', function (req, res) {
+app.get('/', function (req, res) {
 axios
   .get("http://127.0.0.1:9000/products")
   .then((response) => {
-  console.log(response);
   res.render('search', {
     data: response.data,
   });
@@ -26,11 +25,12 @@ app.get('/search', function (req, res) {
   axios
   .get("http://127.0.0.1:9000/search")
   .then((response) => {
-  res.render('searchItem', {
-    data: response.data,
-  });
+  // res.render('search', {
+  //   data: response.data,
+  // });
 })
 .catch((err) => console.log(err));
+res.render('search');
 })
 
 app.listen(3000, function () {

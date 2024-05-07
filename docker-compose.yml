@@ -1,0 +1,21 @@
+version: "3.9"
+services:
+  mysql_service:
+    container_name: mysql_service
+    build: ./database
+    ports:
+      - "6603:3306"
+  crawl_service:
+    container_name: crawl_service
+    build: ./crawl
+    depends_on:
+      - mysql_service
+    ports:
+      - "5000:5000"
+  api_service:
+    container_name: api_service
+    build: ./api
+    depends_on:
+      - mysql_service
+    ports:
+      - "9000:8000"

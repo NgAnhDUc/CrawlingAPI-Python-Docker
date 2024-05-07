@@ -27,7 +27,12 @@ services:
     volumes:
       - ./api:/api
 
-networks:
-  network1:
-    name: my-pre-existing-network
-    external: true
+  web_service:
+    container_name: web_service
+    build: ./web
+    depends_on:
+      - mysql_service
+    ports:
+      - "4000:3000"
+    volumes:
+      - ./web:/app

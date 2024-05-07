@@ -1,4 +1,4 @@
-FROM node:16
+FROM node:latest
 
 EXPOSE 3000
 
@@ -8,8 +8,8 @@ RUN npm i npm@latest
 
 COPY package*.json package-lock.json ./
 
-RUN npm install
+RUN npm install 
 
 COPY . .
 
-CMD [ "npm", "start" ]
+CMD [ "node", "index.js" ]

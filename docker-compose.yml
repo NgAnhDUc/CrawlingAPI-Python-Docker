@@ -22,3 +22,8 @@ services:
       - mysql_service
     ports:
       - "9000:8000"
+
+networks:
+  network1:
+    name: my-pre-existing-network
+    external: true

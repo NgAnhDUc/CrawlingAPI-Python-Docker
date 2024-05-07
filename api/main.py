@@ -1,17 +1,25 @@
 from fastapi import FastAPI, HTTPException, Header, Query
 import mysql.connector.pooling
+import time 
 
-# Tạo một connection pool
-connection_pool = mysql.connector.pooling.MySQLConnectionPool(
-    pool_name="my_pool",
-    pool_size=5,
-    pool_reset_session=True,
-    user='root',
-    password='123456',
-    host='172.17.0.1',
-    port='6603',
-    database='chotot_db'
-)
+while True:
+    try:
+        # Tạo một connection pool
+        connection_pool = mysql.connector.pooling.MySQLConnectionPool(
+            pool_name="my_pool",
+            pool_size=5,
+            pool_reset_session=True,
+            user='root',
+            password='123456',
+            host='172.17.0.1',
+            port='6603',
+            database='chotot_db'
+        )
+        break
+    except Exception as e:
+        print("Connection failed, retrying...")
+        time.sleep(1)
+
 
 app = FastAPI()
 
@@ -38,11 +46,6 @@ def get_connection():
     # Lấy một connection từ connection pool
     return connection_pool.get_connection()
 
-@app.on_event("startup")
-async def startup_event():
-    # Tạo một connection và giữ nó mở
-    con = get_connection()
-    con.close()
 
 @app.get("/check_connection")
 async def check_connection():

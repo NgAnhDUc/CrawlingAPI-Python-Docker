@@ -16,7 +16,7 @@ CREATE TABLE Products (
   region_name NVARCHAR(256) NOT NULL,
   price DECIMAL(10,2) NOT NULL,
   price_string NVARCHAR(256) NOT NULL,
-  webp_image NVARCHAR(256) NOT NULL,
+  webp_image NVARCHAR(256) NULL,
   PRIMARY KEY (id),
   UNIQUE KEY (ad_id) 
 );

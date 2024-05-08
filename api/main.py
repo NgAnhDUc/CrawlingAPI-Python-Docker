@@ -1,6 +1,7 @@
 from fastapi import FastAPI, HTTPException, Header, Query
 import mysql.connector.pooling
 import time 
+from typing import List, Dict, Any
 
 while True:
     try:
@@ -19,7 +20,6 @@ while True:
     except Exception as e:
         print("Connection failed, retrying...")
         time.sleep(1)
-
 
 app = FastAPI()
 
@@ -46,6 +46,49 @@ def get_connection():
     # Lấy một connection từ connection pool
     return connection_pool.get_connection()
 
+@app.post("/crawl")
+async def add_products(products: List[Dict[str, Any]]):
+    try:
+        con = get_connection()
+        cursor = con.cursor()
+        for product in products:
+            data_Product = (
+                product["ad_id"],
+                product["timedate"],
+                product["account_id"],
+                product["account_name"],
+                product["title"],
+                "body",
+                product["category"],
+                product["category_name"],
+                product["area"],
+                product["area_name"],
+                product["region"],
+                product["region_name"],
+                product["price"],
+                product["price_string"],
+                product["webp_image"],
+            )
+        
+            query = """
+                INSERT INTO Products
+                (ad_id, timedate, account_id, account_name, title, body, category, category_name, area, area_name, region, region_name, price, price_string, webp_image)
+                VALUES 
+                (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)
+                ON DUPLICATE KEY UPDATE ad_id = VALUES(ad_id), timedate = VALUES(timedate), 
+                    account_id = VALUES(account_id), account_name = VALUES(account_name), title = VALUES(title), 
+                    body = VALUES(body), category = VALUES(category), category_name = VALUES(category_name), 
+                    area = VALUES(area), area_name = VALUES(area_name), region = VALUES(region), region_name = VALUES(region_name), 
+                    price = VALUES(price), price_string = VALUES(price_string), webp_image = VALUES(webp_image);
+            """
+            cursor.execute(query, data_Product)
+            con.commit()
+        
+        cursor.close()
+        con.close()
+        return {"message": "Products added successfully."}
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=str(e))
 
 @app.get("/check_connection")
 async def check_connection():
@@ -82,7 +125,7 @@ async def search_products(title: str = Query(None)):
 
         con = get_connection()
         cursor = con.cursor()
-        query = f"SELECT * FROM Products WHERE title LIKE '%{title}%'"
+        query = f"SELECT * FROM Products WHERE title LIKE '%{title}%' OR area_name LIKE '%{title}%' OR region_name LIKE '%{title}%'"
         cursor.execute(query)
         search_results = cursor.fetchall()
         products_data = [create_product_data(product) for product in search_results]

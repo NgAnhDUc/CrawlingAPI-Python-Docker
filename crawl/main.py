@@ -19,7 +19,6 @@ def run_schedule():
 async def startup():
     # first run
     crawl_data()
-
     threading.Thread(target=run_schedule).start()
 
 

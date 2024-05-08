@@ -6,6 +6,16 @@ services:
     build: ./database
     ports:
       - "6603:3306"
+  
+  api_service:
+    container_name: api_service
+    build: ./api
+    depends_on:
+      - mysql_service
+    ports:
+      - "9000:8000"
+    volumes:
+      - ./api:/api
 
   crawl_service:
     container_name: crawl_service
@@ -16,16 +26,6 @@ services:
       - "5000:7000"
     volumes:
       - ./crawl:/app
-
-  api_service:
-    container_name: api_service
-    build: ./api
-    depends_on:
-      - mysql_service
-    ports:
-      - "9000:8000"
-    volumes:
-      - ./api:/api
 
   web_service:
     container_name: web_service
